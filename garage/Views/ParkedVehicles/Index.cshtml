@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Garage2.Models.ParkedVehicleViewModel>
+
+@{
+    ViewBag.Title = "Garage";
+    
+    
+}
+
+
+<h1>Grönköping Garage</h1>
+
+<form method="get">
+    <h4>Search by registration number</h4>
+    @Html.TextBox("searchByRegNum", null, new { @placeholder = "XXX111" })
+    <input type="submit" value="Search" /><br />
+</form>  
+<form method="get">
+    <h4>Search by vehicles characteristics</h4>
+    @Html.DropDownList("VehicleTypeList", null, new { htmlAttributes = new { @class = "form-control" } })
+    <input type="submit" value="Search" /><br />
+</form>  
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleType)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingTime)
+        </th>       
+        <th>
+        Customer
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleType)
+        </td>
+        
+        <td>
+            @*It nessessary to create valid format!!*@
+            @*Days:@(item.ParkingTime.Days) Hours:@(item.ParkingTime.Hours) Min:@(item.ParkingTime.Minutes)*@
+            @Html.DisplayFor(modelItem => item.ParkingTime)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Check out", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
